@@ -1,10 +1,12 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import * as actions from './actions';
+import { bindActionCreators } from 'redux';
+import { actionCreators } from './actions';
 import logo from './logo.svg';
 import './App.css';
 
 class App extends Component {
+
   renderFriends() {
     const friends = ['Peter', 'Gina', 'Charlie', 'Julie'];
     return friends.map((friend, idx) => {
@@ -12,7 +14,7 @@ class App extends Component {
         <div className="friendWrapper" key={idx}>
           <h3
             className="friendName"
-            onClick={() => this.props.changeFriend(friend)}
+            onClick={() => this.props.actions.changeFriend(friend)}
           >
             {friend}
           </h3>
@@ -42,7 +44,10 @@ class App extends Component {
 
 const mapStateToProps = ({ friend }) => {
   return { friend }
-  // this.props.friend
 }
 
-export default connect(mapStateToProps, actions)(App);
+const mapDispatchToProps = (dispatch) => {
+  return { actions: bindActionCreators(actionCreators, dispatch) }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(App);

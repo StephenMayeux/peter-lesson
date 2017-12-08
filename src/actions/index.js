@@ -4,3 +4,7 @@ export const changeFriend = (friend) => {
     payload: friend
   }
 }
+
+export const actionCreators = {
+  changeFriend
+}
